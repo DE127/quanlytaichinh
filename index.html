@@ -5,18 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký Thông báo</title>
-    <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script> -->
-    <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function () {
-            OneSignal.init({
-                appId: "YOUR_ONESIGNAL_APP_ID",
-                notifyButton: {
-                    enable: true,
-                },
-            });
-        });
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,7 +34,7 @@
     <div class="container">
         <h1>Nhận Thông Báo Mới Nhất</h1>
         <p>Nhấn vào nút dưới đây để đăng ký nhận thông báo.</p>
-        <button>Đăng ký thông báo</button>
+        <button id="subscribe-btn">Đăng ký thông báo</button>
     </div>
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
@@ -58,6 +46,16 @@
                 notifyButton: {
                     enable: true,
                 },
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('subscribe-btn').addEventListener('click', function () {
+                OneSignalDeferred.push(async function (OneSignal) {
+                    // Hiển thị yêu cầu thông báo cho người dùng
+                    await OneSignal.showNativePrompt();
+                });
             });
         });
     </script>
