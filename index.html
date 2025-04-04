@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký Thông báo</title>
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script> -->
     <script>
         window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
+        OneSignal.push(function () {
             OneSignal.init({
                 appId: "YOUR_ONESIGNAL_APP_ID",
                 notifyButton: {
@@ -22,6 +23,7 @@
             text-align: center;
             padding: 50px;
         }
+
         .container {
             max-width: 600px;
             margin: auto;
@@ -30,6 +32,7 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -38,18 +41,35 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Nhận Thông Báo Mới Nhất</h1>
         <p>Nhấn vào nút dưới đây để đăng ký nhận thông báo.</p>
         <button onclick="subscribe()">Đăng ký thông báo</button>
     </div>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-        function subscribe() {
-            OneSignal.push(function() {
-                OneSignal.showNativePrompt();
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function (OneSignal) {
+            await OneSignal.init({
+                appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
             });
+        });
+
+        async function subscribe() {
+            try {
+                const permission = await OneSignal.pushNotificationPermission();
+                if (permission === 'granted') {
+                    alert('Bạn đã đăng ký nhận thông báo thành công!');
+                } else {
+                    alert('Bạn đã từ chối nhận thông báo.');
+                }
+            } catch (error) {
+                console.error('Error subscribing to notifications:', error);
+            }
         }
     </script>
 </body>
+
 </html>
