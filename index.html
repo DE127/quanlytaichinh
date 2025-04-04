@@ -46,6 +46,16 @@
                 notifyButton: {
                     enable: true,
                 },
+                promptOptions: {
+                    slidedown: {
+                        prompts: [
+                            {
+                                type: "push",
+                                autoPrompt: false,
+                            }
+                        ]
+                    }
+                }
             });
         });
     </script>
@@ -53,8 +63,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('subscribe-btn').addEventListener('click', function () {
                 OneSignalDeferred.push(async function (OneSignal) {
-                    // Hiển thị yêu cầu thông báo cho người dùng
-                    await OneSignal.showNativePrompt();
+                    // Sử dụng phương thức mới của OneSignal v16+
+                    await OneSignal.Slidedown.promptPush();
                 });
             });
         });
