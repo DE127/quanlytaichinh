@@ -46,7 +46,7 @@
     <div class="container">
         <h1>Nhận Thông Báo Mới Nhất</h1>
         <p>Nhấn vào nút dưới đây để đăng ký nhận thông báo.</p>
-        <button onclick="subscribe()">Đăng ký thông báo</button>
+        <button>Đăng ký thông báo</button>
     </div>
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
@@ -54,21 +54,12 @@
         OneSignalDeferred.push(async function (OneSignal) {
             await OneSignal.init({
                 appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
+                safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
+                notifyButton: {
+                    enable: true,
+                },
             });
         });
-
-        async function subscribe() {
-            try {
-                const permission = await OneSignal.pushNotificationPermission();
-                if (permission === 'granted') {
-                    alert('Bạn đã đăng ký nhận thông báo thành công!');
-                } else {
-                    alert('Bạn đã từ chối nhận thông báo.');
-                }
-            } catch (error) {
-                console.error('Error subscribing to notifications:', error);
-            }
-        }
     </script>
 </body>
 
