@@ -99,13 +99,13 @@
             // Handle subscribe button click
             subscribeBtn.addEventListener('click', function() {
                 if (oneSignalInitialized) {
-                    // Use the correct method to show the notification prompt
-                    OneSignal.Slidedown.promptPush();
+                    // Force reset the slidedown state so it appears again even after "Later" is clicked
+                    resetOneSignalPrompt();
                 } else {
                     // If OneSignal isn't initialized yet, wait and try again
                     setTimeout(() => {
                         if (oneSignalInitialized) {
-                            OneSignal.Slidedown.promptPush();
+                            resetOneSignalPrompt();
                         } else {
                             alert("Đang kết nối tới máy chủ thông báo. Vui lòng thử lại sau.");
                         }
@@ -113,6 +113,22 @@
                 }
             });
         });
+        
+        // Function to reset OneSignal prompt state and show it again
+        function resetOneSignalPrompt() {
+            // Check if user has already been prompted
+            OneSignal.Notifications.areEnabled().then(function(isEnabled) {
+                if (!isEnabled) {
+                    // If not enabled, clear any previous interaction state and show the prompt
+                    OneSignal.User.Slidedown.clearSlidedownSession();
+                    // Show the prompt again
+                    OneSignal.Slidedown.promptPush();
+                } else {
+                    // If already enabled, show a message
+                    alert("Bạn đã đăng ký nhận thông báo!");
+                }
+            });
+        }
         
         // Function to load OneSignal SDK after password verification
         function loadOneSignalSDK() {
