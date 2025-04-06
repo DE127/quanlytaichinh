@@ -99,13 +99,13 @@
             // Handle subscribe button click
             subscribeBtn.addEventListener('click', function() {
                 if (oneSignalInitialized) {
-                    // Manually trigger the subscription prompt
-                    OneSignal.showSlidedownPrompt();
+                    // Use the correct method to show the notification prompt
+                    OneSignal.Slidedown.promptPush();
                 } else {
                     // If OneSignal isn't initialized yet, wait and try again
                     setTimeout(() => {
                         if (oneSignalInitialized) {
-                            OneSignal.showSlidedownPrompt();
+                            OneSignal.Slidedown.promptPush();
                         } else {
                             alert("Đang kết nối tới máy chủ thông báo. Vui lòng thử lại sau.");
                         }
