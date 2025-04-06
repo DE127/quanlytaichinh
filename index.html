@@ -27,13 +27,40 @@
             margin-top: 20px;
             cursor: pointer;
         }
+
+        #password-container {
+            margin-top: 20px;
+        }
+
+        #password-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        #subscribe-btn {
+            display: none;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Nhận Thông Báo Mới Nhất</h1>
-        <p>Nhấn vào nút dưới đây để đăng ký nhận thông báo.</p>
+        <p>Nhập mật khẩu để đăng ký nhận thông báo.</p>
+
+        <div id="password-container">
+            <input type="password" id="password-input" placeholder="Nhập mật khẩu">
+            <button id="verify-btn">Xác nhận</button>
+            <p id="error-message" class="error-message">Mật khẩu không đúng!</p>
+        </div>
+
         <button id="subscribe-btn">Đăng ký thông báo</button>
     </div>
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -58,14 +85,28 @@
                 }
             });
         });
-    </script>
-    <script>
+
+        // Password verification
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('subscribe-btn').addEventListener('click', function () {
-                OneSignalDeferred.push(async function (OneSignal) {
-                    // Sử dụng phương thức mới của OneSignal v16+
-                    await OneSignal.Slidedown.promptPush();
-                });
+            const correctPassword = "1235"; // Change this to your desired password
+            const passwordInput = document.getElementById('password-input');
+            const verifyBtn = document.getElementById('verify-btn');
+            const errorMessage = document.getElementById('error-message');
+            const subscribeBtn = document.getElementById('subscribe-btn');
+            const passwordContainer = document.getElementById('password-container');
+
+            verifyBtn.addEventListener('click', function () {
+                if (passwordInput.value === correctPassword) {
+                    // Password is correct
+                    passwordContainer.style.display = 'none';
+                    subscribeBtn.style.display = 'inline-block';
+                } else {
+                    // Password is incorrect
+                    errorMessage.style.display = 'block';
+                    setTimeout(() => {
+                        errorMessage.style.display = 'none';
+                    }, 3000);
+                }
             });
         });
     </script>
