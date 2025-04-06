@@ -65,14 +65,20 @@
     </div>
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
+        let oneSignalInitialized = false;
+        let OneSignal;
+
+        // Initialize OneSignal but don't enable prompts yet
         window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function (OneSignal) {
+        OneSignalDeferred.push(async function(OneSignalSDK) {
+            OneSignal = OneSignalSDK;
             await OneSignal.init({
                 appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
                 safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
                 notifyButton: {
-                    enable: true,
+                    enable: false, // Disable notification button initially
                 },
+                allowLocalhostAsSecureOrigin: true,
                 promptOptions: {
                     slidedown: {
                         prompts: [
@@ -84,18 +90,19 @@
                     }
                 }
             });
+            oneSignalInitialized = true;
         });
 
         // Password verification
-        document.addEventListener('DOMContentLoaded', function () {
-            const correctPassword = "1235"; // Change this to your desired password
+        document.addEventListener('DOMContentLoaded', function() {
+            const correctPassword = "1235"; // Your password
             const passwordInput = document.getElementById('password-input');
             const verifyBtn = document.getElementById('verify-btn');
             const errorMessage = document.getElementById('error-message');
             const subscribeBtn = document.getElementById('subscribe-btn');
             const passwordContainer = document.getElementById('password-container');
 
-            verifyBtn.addEventListener('click', function () {
+            verifyBtn.addEventListener('click', function() {
                 if (passwordInput.value === correctPassword) {
                     // Password is correct
                     passwordContainer.style.display = 'none';
@@ -106,6 +113,23 @@
                     setTimeout(() => {
                         errorMessage.style.display = 'none';
                     }, 3000);
+                }
+            });
+
+            // Handle subscribe button click
+            subscribeBtn.addEventListener('click', function() {
+                if (oneSignalInitialized) {
+                    // Manually trigger the subscription prompt
+                    OneSignal.showSlidedownPrompt();
+                } else {
+                    // If OneSignal isn't initialized yet, wait and try again
+                    setTimeout(() => {
+                        if (oneSignalInitialized) {
+                            OneSignal.showSlidedownPrompt();
+                        } else {
+                            alert("Đang kết nối tới máy chủ thông báo. Vui lòng thử lại sau.");
+                        }
+                    }, 2000);
                 }
             });
         });
