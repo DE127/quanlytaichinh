@@ -68,6 +68,7 @@
     
     <script>
         let oneSignalInitialized = false;
+        let OneSignal;
 
         // Password verification
         document.addEventListener('DOMContentLoaded', function() {
@@ -98,17 +99,13 @@
             // Handle subscribe button click
             subscribeBtn.addEventListener('click', function() {
                 if (oneSignalInitialized) {
-                    // Using the correct method to show slidedown prompt and force it to show
-                    window.OneSignal.push(function() {
-                        OneSignal.showSlidedownPrompt({force: true});
-                    });
+                    // Force reset the slidedown state so it appears again even after "Later" is clicked
+                    resetOneSignalPrompt();
                 } else {
                     // If OneSignal isn't initialized yet, wait and try again
                     setTimeout(() => {
                         if (oneSignalInitialized) {
-                            window.OneSignal.push(function() {
-                                OneSignal.showSlidedownPrompt({force: true});
-                            });
+                            resetOneSignalPrompt();
                         } else {
                             alert("Đang kết nối tới máy chủ thông báo. Vui lòng thử lại sau.");
                         }
@@ -116,6 +113,22 @@
                 }
             });
         });
+        
+        // Function to reset OneSignal prompt state and show it again
+        function resetOneSignalPrompt() {
+            // Check if user has already been prompted
+            OneSignal.Notifications.areEnabled().then(function(isEnabled) {
+                if (!isEnabled) {
+                    // If not enabled, clear any previous interaction state and show the prompt
+                    OneSignal.User.Slidedown.clearSlidedownSession();
+                    // Show the prompt again
+                    OneSignal.showSlidedownPrompt({force: true});
+                } else {
+                    // If already enabled, show a message
+                    alert("Bạn đã đăng ký nhận thông báo!");
+                }
+            });
+        }
         
         // Function to load OneSignal SDK after password verification
         function loadOneSignalSDK() {
@@ -126,9 +139,10 @@
             
             // Initialize OneSignal after script loads
             script.onload = function() {
-                window.OneSignal = window.OneSignal || [];
-                window.OneSignal.push(function() {
-                    OneSignal.init({
+                window.OneSignalDeferred = window.OneSignalDeferred || [];
+                OneSignalDeferred.push(async function(OneSignalSDK) {
+                    OneSignal = OneSignalSDK;
+                    await OneSignal.init({
                         appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
                         safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
                         notifyButton: {
