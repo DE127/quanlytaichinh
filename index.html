@@ -63,35 +63,12 @@
 
         <button id="subscribe-btn">Đăng ký thông báo</button>
     </div>
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    
+    <!-- OneSignal script will be loaded dynamically after password verification -->
+    
     <script>
         let oneSignalInitialized = false;
         let OneSignal;
-
-        // Initialize OneSignal but don't enable prompts yet
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function(OneSignalSDK) {
-            OneSignal = OneSignalSDK;
-            await OneSignal.init({
-                appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
-                safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
-                notifyButton: {
-                    enable: false, // Disable notification button initially
-                },
-                allowLocalhostAsSecureOrigin: true,
-                promptOptions: {
-                    slidedown: {
-                        prompts: [
-                            {
-                                type: "push",
-                                autoPrompt: false,
-                            }
-                        ]
-                    }
-                }
-            });
-            oneSignalInitialized = true;
-        });
 
         // Password verification
         document.addEventListener('DOMContentLoaded', function() {
@@ -107,6 +84,9 @@
                     // Password is correct
                     passwordContainer.style.display = 'none';
                     subscribeBtn.style.display = 'inline-block';
+                    
+                    // Only now load the OneSignal SDK
+                    loadOneSignalSDK();
                 } else {
                     // Password is incorrect
                     errorMessage.style.display = 'block';
@@ -133,6 +113,41 @@
                 }
             });
         });
+        
+        // Function to load OneSignal SDK after password verification
+        function loadOneSignalSDK() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+            script.defer = true;
+            document.body.appendChild(script);
+            
+            // Initialize OneSignal after script loads
+            script.onload = function() {
+                window.OneSignalDeferred = window.OneSignalDeferred || [];
+                OneSignalDeferred.push(async function(OneSignalSDK) {
+                    OneSignal = OneSignalSDK;
+                    await OneSignal.init({
+                        appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
+                        safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
+                        notifyButton: {
+                            enable: false, // Disable notification button initially
+                        },
+                        allowLocalhostAsSecureOrigin: true,
+                        promptOptions: {
+                            slidedown: {
+                                prompts: [
+                                    {
+                                        type: "push",
+                                        autoPrompt: false,
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                    oneSignalInitialized = true;
+                });
+            };
+        }
     </script>
 </body>
 
