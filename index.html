@@ -1,125 +1,595 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký Thông báo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
+  <meta charset="UTF-8">
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
+  <!-- Page Title -->
+  <title>Finny 🌱 - Trợ lý Quản lý Tài chính Cá nhân</title>
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+  <!-- Meta Tags -->
+  <meta name="description"
+    content="Finny - Trợ lý quản lý tài chính cá nhân thông minh, giúp bạn kiểm soát chi tiêu và đạt mục tiêu tài chính">
+  <meta name="keywords"
+    content="finny, quản lý tài chính, tiết kiệm, chi tiêu, ngân sách, tài chính cá nhân, tiền, đầu tư">
+  <meta name="author" content="Finny Team">
 
-        #password-container {
-            margin-top: 20px;
-        }
+  <!-- Viewport Meta-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        #password-input {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
+  <!-- Template Favicon & Icons Start -->
+  <link rel="icon" href="img/favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="img/favicon/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="img/favicon/manifest.webmanifest">
+  <!-- Template Favicon & Icons End -->
 
-        .onesignal-customlink-container {
-            display: none;
-            margin-top: 20px;
-        }
+  <!-- Facebook Metadata Start -->
+  <meta property="og:image:height" content="1200">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:title" content="Finny 🌱 - Trợ lý Quản lý Tài chính Cá nhân">
+  <meta property="og:description"
+    content="Finny - Trợ lý quản lý tài chính cá nhân thông minh, giúp bạn kiểm soát chi tiêu và đạt mục tiêu tài chính">
+  <!-- Facebook Metadata End -->
 
-        .error-message {
-            color: red;
-            margin-top: 10px;
-            display: none;
-        }
-    </style>
+  <!-- Template Styles Start -->
+  <link rel="stylesheet" type="text/css" href="css/loaders/loader.css">
+  <link rel="stylesheet" type="text/css" href="css/plugins.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!-- Template Styles End -->
+
+  <!-- Custom Browser Color Start -->
+  <meta name="theme-color" content="#10102b">
+  <meta name="msapplication-navbutton-color" content="#10102b">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#10102b">
+  <!-- Custom Browser Color End -->
+
+  <style>
+    .btn.verified {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .btn.verified .onesignal-customlink-container {
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Nhận Thông Báo Mới Nhất</h1>
-        <p>Nhập mật khẩu để đăng ký nhận thông báo.</p>
 
-        <div id="password-container">
-            <input type="password" id="password-input" placeholder="Nhập mật khẩu">
-            <button id="verify-btn">Xác nhận</button>
-            <p id="error-message" class="error-message">Mật khẩu không đúng!</p>
+  <!-- Loader Start -->
+  <div class="loader">
+    <div class="loader__container">
+      <div class="loader__circle">
+        <img src="img/loader.svg" alt="Finny loader">
+      </div>
+    </div>
+  </div>
+  <!-- Loader End -->
+
+  <!-- Header Start -->
+  <header id="header" class="header header-transparent d-flex align-items-center justify-content-between">
+
+    <!-- Logo Start -->
+    <div class="header__logo">
+      <!-- Your Logo Here -->
+      <a href="/" class="btn sayhello-trigger">
+        <!-- Icon cho finny -->
+         <i class="fa-solid fa-seedling"></i>
+        <span>Finny 🌱</span>
+      </a>
+
+    </div>
+    <!-- Logo End -->
+
+    <!-- Header Controls Start -->
+    <div class="header__controls d-flex justify-content-start">
+
+      <!-- Say Hello Button Start -->
+      <div class="controls__block d-flex align-items-center">
+        <a href="https://whoiam.id.vn/vi" target="_blank" class="btn sayhello-trigger link-l">
+          <i class="fa-solid fa-user"></i>
+          <span>VỀ TÔI</span>
+        </a>
+      </div>
+      <!-- Say Hello Button End -->
+
+      <!-- Socials Start -->
+      <div class="controls__block d-flex align-items-center">
+        <!-- socials trigger -->
+        <a href="#" id="socials-trigger" class="socials-trigger link-l">
+          <i class="fa-solid fa-share-nodes"></i>
+        </a>
+        <!-- socials -->
+        <div id="header-socials" class="header__socials">
+          <!-- socials close -->
+          <a href="#" id="socials-close" class="socials__close link-l">
+            <span></span>
+          </a>
+          <!-- socials links -->
+          <ul class="socials__links">
+            <li>
+              <a class="link-s" href="https://github.com/de127" target="_blank">
+                <i class="fa-brands fa-github-alt"></i>
+                <span>Github</span>
+              </a>
+            </li>
+            <li>
+              <a class="link-s" href="https://twitter.com/nguyenhungg127" target="_blank">
+                <i class="fa-brands fa-twitter"></i>
+                <span>Twitter</span>
+              </a>
+            </li>
+            <li>
+              <a class="link-s" href="https://www.linkedin.com/in/hwngnd/" target="_blank">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a class="link-s" href="https://www.facebook.com/@hungg.nd" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+                <span>Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a class="link-s" href="https://www.instagram.com/hwng.nd/" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Socials End -->
+
+      <!-- Menu Trigger Start -->
+      <div class="controls__block">
+        <a href="#0" id="menu-trigger" class="menu-trigger link-l">
+          <span class="menu-objects"></span>
+          <span class="menu-close"></span>
+        </a>
+      </div>
+      <!-- Menu Trigger End -->
+
+    </div>
+    <!-- Header Controls End -->
+
+  </header>
+  <!-- Header End -->
+
+  <!-- Menu Start -->
+  <nav id="menu" class="menu">
+    <div class="menu__content">
+      <!-- SVG gradient background -->
+      <div class="svg-layer svg-layer-menu"></div>
+      <div class="container-fluid p-0 fullheight-mobile">
+        <div class="row g-0 fullheight-mobile">
+
+          <!--Menu Data Block Start -->
+          <div class="col-12 menu__data">
+
+            <!-- Menu Links Start -->
+            <div class="menudata__links">
+              <div class="container-fluid p-0">
+                <div class="row g-0">
+                  <div class="col-12">
+
+                    <!-- Navigation Start -->
+                    <ul class="navigation">
+                      <li>
+                        <a class="navigation__link link-l-arrow" href="#0" id="home-trigger">Trang Chủ</a>
+                        <div id="home-trigger-marquee" class="marquee-link">
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                            <span>Trang Chủ</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <a class="navigation__link link-l-arrow" href="https://whoiam.id.vn/vi" target="_blank">Về Tôi</a>
+                        <div class="marquee-link">
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                            <span>Về Tôi</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <a class="navigation__link link-l-arrow" href="https://whoiam.id.vn/vi" target="_blank">Portfolio</a>
+                        <div class="marquee-link">
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                            <span>Portfolio</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <a class="navigation__link link-l-arrow" href="https://whoiam.id.vn/vi" target="_blank">Liên Hệ</a>
+                        <div class="marquee-link">
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                          </div>
+                          <div class="marquee-link-content scroll-x2">
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                            <span>Liên Hệ</span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <!-- Navigation End -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Menu Links End -->
+
+            <!-- Menu Footer Start -->
+            <div class="menudata__footer d-md-flex align-items-md-center justify-content-md-between">
+              <div class="container-fluid p-0">
+                <div class="row g-0 d-flex flex-column flex-md-row">
+                  <div class="col-12 col-md-6 text-start">
+                    <div class="content-block">
+                      <p class="additional-text"><a class="link-s" href="mailto:nguyenhungg127@gmail.com">nguyenhungg127@gmail.com</a></p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 text-start text-md-end">
+                    <div class="content-block">
+                      <p class="copyright additional-text"><a class="link-s" href="https://whoiam.id.vn/vi" target="_blank">DE127</a>,
+                        2024</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Menu Footer End -->
+
+          </div>
+          <!--Menu Data Block End -->
+
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Menu End -->
+
+  <!-- Main Section Start -->
+  <section id="main" class="main main-fullscreen active">
+
+    <!-- Main Section Content Start -->
+    <div class="main__content content-fullheight fullheight-mobile">
+
+      <!-- Fullscreen Background Start-->
+      <div class="fullscreen-bg">
+        <!-- local video background -->
+        <div class="video-background">
+          <video id="main-video" preload="auto" autoplay="autoplay" loop="loop" muted="muted">
+            <source type="video/mp4" src="video/finny.mp4">
+            <source type="video/webm" src="video/finny.webm">
+            <source type="video/ogv" src="video/finny.ogv">
+          </video>
+        </div>
+        <!-- dark cover layer -->
+        <div class="color-layer layer-dark-06"></div>
+      </div>
+      <!-- Fullscreen Background End-->
+
+      <div class="container-fluid px-0 fullheight-mobile">
+        <div class="row gx-0 fullheight-mobile">
+
+          <!-- Main Section Intro Start -->
+          <div class="col-12 main__intro intro-fullheight">
+
+            <!-- Main Intro Content Start -->
+            <div class="intro__content fullheight-mobile">
+              <div class="container-fluid p-0 fullheight-mobile">
+                <div class="row g-0 fullheight-mobile">
+                  <div class="col-12 fullheight-mobile">
+
+                    <!-- Headline Start -->
+                    <div id="headline" class="headline centered-mobile">
+                      <h1 class="headline__title large">Xin chào<br>
+                        <span class="headline__decorated outline-object-hello" style="margin: 2% 1%;">Finny_🌱</span><br>
+                        <span class="outline-object-soon">Trợ lý tài chính</span>
+                      </h1>
+                      <div class="headline__btnholder d-flex flex-column flex-md-row">
+                        <a href="#" id="menu-tigger-headline"
+                          class="d-flex justify-content-center justify-content-md-start btn btn-s btn-icon-left btn-light link-s">
+                          <span class="btn-title">Tìm hiểu thêm</span>
+                          <span class="btn-icon-anim"><i class="fa-solid fa-arrow-right"></i></span>
+                        </a>
+                        <a href="#" id="notify-trigger"
+                          class="d-flex justify-content-center justify-content-md-start btn btn-s btn-icon-left btn-mute link-s">
+                          <span class="btn-title">Đăng ký nhận thông báo</span>
+                          <span class="btn-icon-anim"><i class="fa-solid fa-hand-point-right"></i></span>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- Headline End -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Main Intro Content End -->
+
+          </div>
+          <!-- Main Section Intro End -->
+
+        </div>
+      </div>
+
+      <!-- Main Section Marquee Start -->
+      <a href="mailto:nguyenhungg127@gmail.com?subject=Yêu%20cầu%20hỗ%20trợ%20Finny%20AI" class="marquee link-l-arrow">
+        <div class="marquee-content scroll">
+          <span>Liên hệ</span>
+          <span>Hỗ trợ</span>
+          <span>Kết nối</span>
+        </div>
+        <div class="marquee-content scroll">
+          <span>Liên hệ</span>
+          <span>Hỗ trợ</span>
+          <span>Kết nối</span>
+        </div>
+        <div class="marquee-content scroll">
+          <span>Liên hệ</span>
+          <span>Hỗ trợ</span>
+          <span>Kết nối</span>
+        </div>
+      </a>
+      <!-- Main Section Marquee End -->
+
+    </div>
+    <!-- Main Section Content End -->
+
+  </section>
+  <!-- Main Section End -->
+
+  <!-- Notify Popup Start -->
+  <div id="notify" class="popup notify d-md-flex align-items-md-center">
+    <!-- SVG gradient background -->
+    <div class="svg-layer svg-layer-popup"></div>
+    <div class="popup__container">
+      <div class="popup__content">
+
+        <!-- Notify Popup Close Button Start -->
+        <a href="#0" id="notify-close" class="popup-close link-m">
+          <span></span>
+        </a>
+        <!-- Notify Popup Close Button End -->
+
+        <!-- Notify Popup Title Start -->
+        <div class="popup-title">
+          <span class="popup-title__subtitle">
+            <i class="fa-solid fa-lock"></i>
+            Truy cập bảo mật
+          </span>
+          <p class="popup-title__title">Xác thực mật khẩu</p>
+          <p class="popup-title__text">Vui lòng nhập mật khẩu để đăng ký nhận thông báo từ Finny - trợ lý tài chính cá
+            nhân của bạn</p>
+        </div>
+        <!-- Notify Popup Title End -->
+
+        <!-- Notify Form Container Start -->
+        <div class="form-container">
+
+          <!-- Reply Messages Start-->
+          <div class="reply-group subscription-ok">
+            <i class="fa-solid fa-circle-check reply-group__icon"></i>
+            <p class="reply-group__title txt-light">Xác thực thành công!</p>
+            <span class="reply-group__text">Vui lòng bấm nút đăng ký bên dưới để nhận thông báo từ Finny.</span>
+            <div class="onesignal-customlink-container mt-4"></div>
+          </div>
+          <div class="reply-group subscription-error">
+            <i class="fa-solid fa-face-frown-open reply-group__icon"></i>
+            <p class="reply-group__title">Lỗi!</p>
+            <span class="reply-group__text">Mật khẩu không chính xác. Vui lòng thử lại.</span>
+          </div>
+          <!-- Reply Messages End-->
+
+          <!-- Notify Contact Form Start-->
+          <form id="password-form" class="form notify-form form-light">
+            <input id="password-input" class="block-rounded-s" type="password" placeholder="Nhập mật khẩu" required>
+            <button id="verify-btn" class="btn btn-l btn-light link-m-opposite" type="button">
+              <span class="btn-caption">Xác nhận</span>
+            </button>
+          </form>
+          <!-- Notify Contact Form End-->
+
+        </div>
+        <!-- Notify Form Container End -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Notify Popup End -->
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+      It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+      <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close link-s" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share link-s" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs link-s" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom link-s" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader-active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Replace the subscribe button with OneSignal's custom link container -->
-        <div class="onesignal-customlink-container"></div>
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left link-s" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right link-s" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- OneSignal script will be loaded dynamically after password verification -->
+  </div>
 
-    <script>
-        let oneSignalInitialized = false;
-        let OneSignal;
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
 
-        // Password verification
-        document.addEventListener('DOMContentLoaded', function () {
-            const correctPassword = "1235"; // Your password
-            const passwordInput = document.getElementById('password-input');
-            const verifyBtn = document.getElementById('verify-btn');
-            const errorMessage = document.getElementById('error-message');
-            const customLinkContainer = document.querySelector('.onesignal-customlink-container');
-            const passwordContainer = document.getElementById('password-container');
+  <!-- Load Scripts Start -->
+  <script src="js/libs.min.js"></script>
+  <script src="js/gallery-init.js"></script>
+  <script src="js/custom.js"></script>
+  <!-- Load Scripts End -->
+  <!-- OneSignal & Password Protection Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Open notify popup automatically when page loads
+      setTimeout(function () {
+        document.getElementById('notify').classList.add('animate-in');
+      }, 1500); // Wait for page to load properly
 
-            verifyBtn.addEventListener('click', function () {
-                if (passwordInput.value === correctPassword) {
-                    // Password is correct
-                    passwordContainer.style.display = 'none';
-                    customLinkContainer.style.display = 'block';
+      // Get notify trigger button
+      const notifyTrigger = document.getElementById('notify-trigger');
 
-                    // Only now load the OneSignal SDK
-                    loadOneSignalSDK();
-                } else {
-                    // Password is incorrect
-                    errorMessage.style.display = 'block';
-                    setTimeout(() => {
-                        errorMessage.style.display = 'none';
-                    }, 3000);
-                }
-            });
-        });
+      // Password verification
+      const correctPassword = "1235"; // Same password as in original index.html
+      const passwordInput = document.getElementById('password-input');
+      const verifyBtn = document.getElementById('verify-btn');
+      const passwordForm = document.getElementById('password-form');
+      const subscriptionError = document.querySelector('.subscription-error');
+      const notifyPopup = document.getElementById('notify');
 
-        // Function to load OneSignal SDK after password verification
-        function loadOneSignalSDK() {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-            script.defer = true;
-            document.body.appendChild(script);
+      verifyBtn.addEventListener('click', function () {
+        if (passwordInput.value === correctPassword) {
+          // Password is correct
+          // Close the popup
+          notifyPopup.classList.remove('animate-in');
 
-            // Initialize OneSignal after script loads
-            script.onload = function () {
-                window.OneSignalDeferred = window.OneSignalDeferred || [];
-                OneSignalDeferred.push(async function (OneSignalSDK) {
-                    OneSignal = OneSignalSDK;
-                    await OneSignal.init({
-                        appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
-                        safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
-                    });
-                    oneSignalInitialized = true;
-                });
-            };
+          // Replace the notification button with OneSignal container
+          notifyTrigger.innerHTML = '<div class="onesignal-customlink-container"></div>';
+          notifyTrigger.classList.add('verified');
+
+          // Disable the original click event
+          notifyTrigger.onclick = function (e) {
+            e.preventDefault();
+            return false;
+          };
+
+          // Load OneSignal SDK
+          loadOneSignalSDK();
+        } else {
+          // Password is incorrect
+          subscriptionError.style.display = 'block';
+          setTimeout(() => {
+            subscriptionError.style.display = 'none';
+          }, 3000);
         }
-    </script>
+      });
+
+      // Function to load OneSignal SDK after password verification
+      function loadOneSignalSDK() {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+        script.defer = true;
+        document.body.appendChild(script);
+
+        // Initialize OneSignal after script loads
+        script.onload = function () {
+          window.OneSignalDeferred = window.OneSignalDeferred || [];
+          OneSignalDeferred.push(async function (OneSignalSDK) {
+            await OneSignalSDK.init({
+              appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
+              safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
+            });
+          });
+        };
+      }
+    });
+  </script>
+  <!-- Load Scripts End -->
 </body>
 
 </html>

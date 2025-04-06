@@ -1,0 +1,19 @@
+{
+  "name": "Finny - Trợ lý quản lý tài chính cá nhân thông minh, giúp bạn kiểm soát chi tiêu và đạt mục tiêu tài chính",
+  "short_name": "Finny",
+  "icons": [
+    {
+      "src": "/img/favicon/android-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/favicon/android-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#efefef",
+  "background_color": "#efefef",
+  "display": "standalone"
+}
