@@ -65,15 +65,15 @@
         <!-- Replace the subscribe button with OneSignal's custom link container -->
         <div class="onesignal-customlink-container"></div>
     </div>
-    
+
     <!-- OneSignal script will be loaded dynamically after password verification -->
-    
+
     <script>
         let oneSignalInitialized = false;
         let OneSignal;
 
         // Password verification
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const correctPassword = "1235"; // Your password
             const passwordInput = document.getElementById('password-input');
             const verifyBtn = document.getElementById('verify-btn');
@@ -81,12 +81,12 @@
             const customLinkContainer = document.querySelector('.onesignal-customlink-container');
             const passwordContainer = document.getElementById('password-container');
 
-            verifyBtn.addEventListener('click', function() {
+            verifyBtn.addEventListener('click', function () {
                 if (passwordInput.value === correctPassword) {
                     // Password is correct
                     passwordContainer.style.display = 'none';
                     customLinkContainer.style.display = 'block';
-                    
+
                     // Only now load the OneSignal SDK
                     loadOneSignalSDK();
                 } else {
@@ -98,42 +98,22 @@
                 }
             });
         });
-        
+
         // Function to load OneSignal SDK after password verification
         function loadOneSignalSDK() {
             const script = document.createElement('script');
             script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
             script.defer = true;
             document.body.appendChild(script);
-            
+
             // Initialize OneSignal after script loads
-            script.onload = function() {
+            script.onload = function () {
                 window.OneSignalDeferred = window.OneSignalDeferred || [];
-                OneSignalDeferred.push(async function(OneSignalSDK) {
+                OneSignalDeferred.push(async function (OneSignalSDK) {
                     OneSignal = OneSignalSDK;
                     await OneSignal.init({
                         appId: "bcd53a6d-e73c-4e24-9417-1086f25eff31",
                         safari_web_id: "web.onesignal.auto.3377791d-2467-4a62-9fdc-3aca1a0bc947",
-                        notifyButton: {
-                            enable: false, // Disable notification button initially
-                        },
-                        // Enable custom link for subscription
-                        promptOptions: {
-                            customlink: {
-                                enabled: true, // Enable custom link
-                                style: "button", // Use button style
-                                size: "medium", // Medium-sized button
-                                color: {
-                                    button: "#E12D30", // Red button color
-                                    text: "#FFFFFF", // White text
-                                },
-                                text: {
-                                    subscribe: "Đăng ký thông báo", // Subscribe text
-                                    unsubscribe: "Hủy đăng ký", // Unsubscribe text
-                                },
-                                unsubscribeEnabled: true, // Allow unsubscribe
-                            }
-                        }
                     });
                     oneSignalInitialized = true;
                 });
