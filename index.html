@@ -38,8 +38,9 @@
             margin-right: 10px;
         }
 
-        #subscribe-btn {
+        .onesignal-customlink-container {
             display: none;
+            margin-top: 20px;
         }
 
         .error-message {
@@ -61,7 +62,8 @@
             <p id="error-message" class="error-message">Mật khẩu không đúng!</p>
         </div>
 
-        <button id="subscribe-btn">Đăng ký thông báo</button>
+        <!-- Replace the subscribe button with OneSignal's custom link container -->
+        <div class="onesignal-customlink-container"></div>
     </div>
     
     <!-- OneSignal script will be loaded dynamically after password verification -->
@@ -76,14 +78,14 @@
             const passwordInput = document.getElementById('password-input');
             const verifyBtn = document.getElementById('verify-btn');
             const errorMessage = document.getElementById('error-message');
-            const subscribeBtn = document.getElementById('subscribe-btn');
+            const customLinkContainer = document.querySelector('.onesignal-customlink-container');
             const passwordContainer = document.getElementById('password-container');
 
             verifyBtn.addEventListener('click', function() {
                 if (passwordInput.value === correctPassword) {
                     // Password is correct
                     passwordContainer.style.display = 'none';
-                    subscribeBtn.style.display = 'inline-block';
+                    customLinkContainer.style.display = 'block';
                     
                     // Only now load the OneSignal SDK
                     loadOneSignalSDK();
@@ -95,40 +97,7 @@
                     }, 3000);
                 }
             });
-
-            // Handle subscribe button click
-            subscribeBtn.addEventListener('click', function() {
-                if (oneSignalInitialized) {
-                    // Force reset the slidedown state so it appears again even after "Later" is clicked
-                    resetOneSignalPrompt();
-                } else {
-                    // If OneSignal isn't initialized yet, wait and try again
-                    setTimeout(() => {
-                        if (oneSignalInitialized) {
-                            resetOneSignalPrompt();
-                        } else {
-                            alert("Đang kết nối tới máy chủ thông báo. Vui lòng thử lại sau.");
-                        }
-                    }, 2000);
-                }
-            });
         });
-        
-        // Function to reset OneSignal prompt state and show it again
-        function resetOneSignalPrompt() {
-            // Check if user has already been prompted
-            OneSignal.Notifications.areEnabled().then(function(isEnabled) {
-                if (!isEnabled) {
-                    // If not enabled, clear any previous interaction state and show the prompt
-                    OneSignal.User.Slidedown.clearSlidedownSession();
-                    // Show the prompt again
-                    OneSignal.showSlidedownPrompt({force: true});
-                } else {
-                    // If already enabled, show a message
-                    alert("Bạn đã đăng ký nhận thông báo!");
-                }
-            });
-        }
         
         // Function to load OneSignal SDK after password verification
         function loadOneSignalSDK() {
@@ -148,15 +117,21 @@
                         notifyButton: {
                             enable: false, // Disable notification button initially
                         },
-                        allowLocalhostAsSecureOrigin: true,
+                        // Enable custom link for subscription
                         promptOptions: {
-                            slidedown: {
-                                prompts: [
-                                    {
-                                        type: "push",
-                                        autoPrompt: false,
-                                    }
-                                ]
+                            customlink: {
+                                enabled: true, // Enable custom link
+                                style: "button", // Use button style
+                                size: "medium", // Medium-sized button
+                                color: {
+                                    button: "#E12D30", // Red button color
+                                    text: "#FFFFFF", // White text
+                                },
+                                text: {
+                                    subscribe: "Đăng ký thông báo", // Subscribe text
+                                    unsubscribe: "Hủy đăng ký", // Unsubscribe text
+                                },
+                                unsubscribeEnabled: true, // Allow unsubscribe
                             }
                         }
                     });
